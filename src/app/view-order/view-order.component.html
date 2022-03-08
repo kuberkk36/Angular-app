@@ -1,0 +1,41 @@
+<div class="d-flex flex-column" style="height: 100vh;">
+    <app-nav-bar></app-nav-bar>
+<ng-container>
+    <div class="container">
+        <div class="card-table">
+            <div class="cart-product">
+                <table class="table table-responsive">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Product Name</th>
+                            <th>Product Image</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let item of orderDetails; let i = index">
+                            <td>{{i+1}}</td>
+                            <td>{{item.productName}}</td>
+                            <td><img style="width: 150px;" src="data:image/png;base64,{{item?.productIcon}}" alt=""></td>
+                            <td style="width: 30%;">{{item.productDescription}}</td>
+                            <th style="width: 15%;">{{item.price}}</th>
+                            <td style="width: 15%;">{{item.quantity}}</td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                            <td><button routerLink="/home" class="btn btn-primary">Shop More</button></td>
+                            <td><strong>Total Quantity: {{totalQuantity}}</strong></td>
+                            <td><strong>Total Price: ${{orderData.price}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</ng-container>
+</div>

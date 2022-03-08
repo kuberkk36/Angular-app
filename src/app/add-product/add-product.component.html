@@ -1,0 +1,43 @@
+<div class="d-flex flex-column CustomScrollBar" style="height: 100vh;">
+    <app-nav-bar></app-nav-bar>
+    <div class="card " style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">Add product</h5>
+          <mat-progress-bar mode="buffer" *ngIf="progressBar"></mat-progress-bar>
+          <form [formGroup]="productForm">
+    
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Name</label>
+              <input type="text" class="form-control" name="name" formControlName="productName" >
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Code</label>
+                <input type="text" class="form-control" name="name"  formControlName="productCode">
+              </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Price</label>
+              <input type="number" class="form-control" name="price" formControlName="price">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Quantity</label>
+                <input type="number" class="form-control" name="quantity" formControlName="quantity">
+              </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Upload Image</label>
+              <input type="file" class="form-control" placeholder="Product Picture" #image
+                                                      accept="image/*" name="image"
+                                                      (change)="handleFileInput($event.target)">
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputEmail1" class="form-label">Description</label>
+              <textarea class="form-control" name="description" formControlName="productDescription"></textarea>
+            </div>
+      
+            <button type="submit" class="btn btn-primary" (click)="addProduct()">Save</button>
+          </form>
+        </div>
+      </div>
+      
+    
+      
+</div>

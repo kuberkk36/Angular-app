@@ -1,0 +1,61 @@
+<div class="d-flex flex-column" style="height: 100vh;">
+    <app-nav-bar></app-nav-bar>
+    <section class="h-100  ">
+    <div class="d-flex h-100 w-75 flex-column mt-5" style="transform: translate(20%, -0%);">
+    <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Order Status</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody *ngFor="let item of orderList; let i=index">
+          <tr >
+            <th scope="row">{{i+1}}</th>
+            <td>{{item?.userEmail}}</td>
+            <td>{{item?.status}}</td>
+            <td>{{item?.quantity}}</td>
+            <td>
+              <button type="button" *ngIf="isAdmin" class="btn btn-primary" data-toggle="modal" data-target="#statusModal" (click)="showModal();setOrder(item)">
+                Update Status
+              </button>
+              <button type="button" class="btn btn-success ml-1" (click)="setOrderToView(item)">
+                View Order
+              </button>
+          </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</section>
+</div>
+
+
+<div class="modal" [class.show]="show" id="statusModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+ aria-hidden="true" #orderModal>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Update Order Status</h5>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<span class="input-group-addon"><label for="editOwnerName"></label></span>
+						  <select id="locator" class="form-control p-0"
+                      (change)="changeOrderStatus($event)">
+                      <option *ngFor="let item of orderStatusType" [value]="item">{{item}}</option>
+                </select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="showModal()">Close</button>
+				<button type="button" class="btn btn-primary" (click)="saveOrderStatus()">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,23 @@
+<div class="d-flex flex-column" style="height: 100vh;">
+    <app-nav-bar></app-nav-bar>
+        <h3 class="mt-2 ml-3">Products </h3>
+      <div style="margin-left: 10rem;">
+        <div class="card ml-3 mt-2 align-items-center" style=" width: 25rem;" *ngFor="let item of products">
+            <img class="card-img-top" src="data:image/png;base64,{{item?.productIcon}}">
+            <div class="card-body">
+              <h5 class="card-title">{{item?.productName}} </h5>
+              <p class="card-text">{{item?.productDescription}}</p>
+              <p class="card-text">Price <span style="font-weight: bold;">${{item?.price}}</span></p>
+              <p class="card-text">Stock: Only <span style="font-weight: bold;">{{item?.quantity}}</span> left</p>
+            </div>
+            <div class="card-body">
+              <button class="btn btn-outline-success" *ngIf="isAdmin" [routerLink]="['/product']" (click)="setNavigationData(item)"><i class="far fa-edit"></i>Edit Product</button>
+              <button class="btn btn-outline-success" *ngIf="!isAdmin" [disabled]="item.selected || item.quantity == 0" (click)="addToCart(item)"><i class="fad fa-shopping-cart mr-1 fa-lg"></i>Add To Cart</button>
+              <button class="btn btn-outline-danger ml-2" *ngIf="isAdmin" (click)="deleteProduct(item)"><i class="fas fa-trash-alt"></i> Delete Product</button>
+            </div>
+          </div>
+        <div>
+            <app-cart *ngIf="!isAdmin"></app-cart>
+        </div> 
+        
+</div>

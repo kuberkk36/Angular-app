@@ -1,0 +1,81 @@
+<mat-sidenav-container class="cart-container" >
+    <mat-sidenav #cardsidenav
+    [opened]="isCartBarOpen" 
+    fixedInViewport="true" 
+    fixedTopGap="50"
+    fixedBottomGap="0"
+     class="cart-sidenav border-0" position="end">
+        <ng-container>
+        <div class="h-100 w-100 p-2 d-flex flex-column">
+            <div class="d-flex justify-content-between">
+            <span class="d-flex align-items-center text-info br-5 p-1 font14" style="background: var(--info-light);">
+                <i class="fad fa-shopping-cart mr-1 fa-lg"></i>Cart Info
+            </span>
+            
+        </div>
+
+            <div class="mt-2 flex-grow-1 h-75 CustomScrollBar " >
+                <div class="d-flex h-100 align-items-center justify-content-center px-4" *ngIf="cartItems.length ==0">
+                    <div class="card py-3 px-4 w-100 text-center">
+                        <i class="fad fa-shopping-cart fa-2x text-dark mb-2" style="--fa-secondary-color: var(--secondary-hover);--fa-secondary-opacity: 1;"></i>
+                        <p class="text-dark-light font14">Your cart is empty please add items to the cart to checkout</p>
+                    </div>
+                </div>
+                <ng-container  *ngIf="cartItems.length !=0">
+                    <div class="card p-2 mr-2 d-flex flex-row align-items-start" *ngFor="let item of cartItems; let i = index">
+                        <div class="d-inline-block h-100">
+                            <div>
+                                <img class="mr-2" src="data:image/png;base64,{{item?.productIcon}}" width="250px" height="250px">
+                            </div>
+                        </div>
+                        <div class="flex-grow-1" style="width: 90%;">
+                            <div class="d-flex justify-content-between">
+                            <span class="text-dark font14 text-truncate" style="max-width: 85%;" >{{item?.productName | titlecase}} </span>
+                            <button class="btn-light" (click)="deleteItem(i,item?.id)" ><i class='fad fa-trash-alt font14'></i></button>
+                            </div>
+                            <div>
+                            <span class="text-weight-light text-dark-light">Product Code: {{item?.productCode}}</span>
+                            </div>
+                            <div class="mt-2 d-flex align-items-center justify-content-between">
+                            <div class="d-inline-flex align-items-center">
+                                <span class="primary-color">Qty</span>
+                                <button class="btn-light p-1 ml-2" (click)="removeQuantity(i)" [disabled] = "item?.cartQuantity == 1 "><i class='fad fa-minus-circle primary-color font14' ></i></button>
+                                <input class="form-control qf-input primary-color d-inline-flex ml-1 px-1 text-center" [ngModel]="item?.cartQuantity" style="height: 24px;width: 35px;" readonly/>
+                                <button class="btn-light p-1 ml-1" (click)="addQuantity(i)" [disabled] = "item?.quantity == 0"><i class='fad fa-plus-circle primary-color font14' ></i></button>
+                            </div>
+                            </div>
+                            <div>
+                                <span class="text-dark font14">Price : {{item?.price}}$</span>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div class="mt-auto pt-3">
+                <div class="card mb-0 p-2 ">
+                    <div class="d-flex flex-row align-items-start">
+                    <div class="d-inline-block h-75">
+                        <i class='fas fa-shopping-cart font18 mr-1'></i>
+                    </div>
+                    <div class="flex-grow-1 ml-1" style="width: 90%;">
+                        <div class="d-flex justify-content-between align-items-center">
+                        <span class="text-weight-light text-dark font14">Total Items</span>
+                        <h6 class="primary-color mb-0">{{totalQuantity}}</h6>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mt-2">
+                        <span class="text-weight-light text-dark font14">Total Price</span>
+                        <h6 class="primary-color mb-0">${{totalPrice}}</h6>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="mt-2 px-2">
+                    <button class="btn-primary btn-block" (click)="placeOrder()" [disabled]="cartItems?.length == 0">
+                        <span>Place Order</span>
+                    </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </ng-container>
+    </mat-sidenav>
+</mat-sidenav-container>
