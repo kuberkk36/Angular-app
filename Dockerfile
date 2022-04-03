@@ -1,8 +1,11 @@
-FROM node:latest as node
+FROM node:12-alpine as builder
 WORKDIR /app
 COPY . .
 RUN npm install
 RUN npm run build --prod
 
 FROM nginx:alpine
-COPY --from=node /app/dist/ecommerce-digitalgreen /usr/share/ng/html
+WORKDIR /usr/share/ng/html
+COPY --from=builder /app/dist/ecommerce-digitalgreen /usr/share/ng/html
+EXPOSE 80
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
